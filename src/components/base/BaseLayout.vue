@@ -237,8 +237,9 @@
       <!-- AsagoStudio - Years -->
       <v-col
         cols="12"
+        class="d-flex justify-center"
       >
-
+        <strong class="mr-2"> Asago Studio </strong> - <span class="ml-2">{{ Years }}</span>
       </v-col>
 
     </v-row>
@@ -251,6 +252,14 @@
 <script>
 export default {
   name: "BaseLayout",
+  computed: {
+    height() {
+      return !(this.$vuetify.breakpoint.name === 'lg' || this.$vuetify.breakpoint.name === 'xl')
+    },
+    Years() {
+      return  new Date().getFullYear()
+    }
+  },
   data: () => ({
       drawer: false,
 
@@ -374,11 +383,6 @@ export default {
       }
     }
   }),
-  computed: {
-    height() {
-      return !(this.$vuetify.breakpoint.name === 'lg' || this.$vuetify.breakpoint.name === 'xl')
-    }
-  }
 }
 </script>
 
