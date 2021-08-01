@@ -1,4 +1,9 @@
-# asago-client
+# asago-client is a project e-commerce of vestments sale
+
+## This project is in progress of the development
+
+#### In project, I will try to put in place all the goods practical of VueJs and Vuetify.
+
 
 ## Project setup
 ```
