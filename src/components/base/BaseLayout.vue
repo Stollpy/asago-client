@@ -14,33 +14,82 @@
     >
       <v-list-item-group>
 
-        <!-- item search -->
-        <v-list-item>
+        <!-- item top -->
+        <v-list-item
+          v-for="item in navigationDrawer.itemTop"
+          :key="item.id"
+        >
           <v-icon
           >
-            mdi-magnify
+            {{ item.icon }}
           </v-icon>
-          <span> Recherche </span>
+          <span class="ml-2" > {{ item.title }} </span>
         </v-list-item>
 
-        <!-- item account -->
+        <v-divider></v-divider>
+
+        <!-- item bottom -->
+
+        <!-- item Shop -->
+        <v-list-item class="mt-3">
+          <v-icon>
+            mdi-store
+          </v-icon>
+          <span class="ml-2" > Shop </span>
+        </v-list-item>
+
+        <!-- item size guide -->
         <v-list-item>
-          <v-icon
-          >
-            mdi-account
+          <v-icon>
+            mdi-television-guide
           </v-icon>
-          <span> Mon compte </span>
+          <span class="ml-2" > Guide de taille </span>
         </v-list-item>
 
-        <!-- item cart -->
+        <!-- item blog -->
         <v-list-item>
-          <v-icon
-          >
-            mdi-cart
+          <v-icon>
+            mdi-post
           </v-icon>
-          <span> Panier </span>
+          <span class="ml-2" > Blog </span>
         </v-list-item>
 
+        <!-- item Menu -->
+        <v-list-item
+          v-for="item in navigationDrawer.itemBottom.menu"
+          :key="item.id"
+        >
+
+          <v-menu
+            rounded="b-xl"
+            offset-y
+            class="ml-0 pl-0"
+          >
+
+            <template v-slot:activator="{ attrs, on }" class="ml-0 pl-0">
+              <div
+                  :id="'menu'+item.id"
+                  v-bind="attrs"
+                  v-on="on"
+              >
+                <v-icon>
+                  {{ item.icon }}
+                </v-icon>
+                <span class="ml-2" > {{ item.title }} </span>
+              </div>
+            </template>
+
+            <v-list>
+              <v-list-item
+                v-for="i in item.items"
+                :key="i.id"
+              >
+                <span> {{ i.title }} </span>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+
+        </v-list-item>
       </v-list-item-group>
     </v-list>
   </v-navigation-drawer>
@@ -112,7 +161,7 @@
 
         <v-img
          :src="require('../../assets/core/Logo1.png')"
-         max-width="400"
+         max-width="375"
         />
 
         <v-col
@@ -142,6 +191,56 @@
       justify="center"
     >
 
+      <!-- Content -->
+      <v-col
+        cols="12"
+      >
+        <v-row
+          justify="center"
+        >
+          <!-- item Footer -->
+          <v-col
+            v-for="item in itemFooter"
+            :key="item.id"
+            cols="12"
+            sm="12"
+            md="4"
+            lg="4"
+          >
+            <v-row
+              no-gutters
+              justify="center"
+            >
+              <!-- item Title -->
+              <v-col
+                cols="12"
+              >
+                <span class="text-h6 pl-3"> {{ item.title }} </span>
+              </v-col>
+              <!-- the items of item -->
+              <v-col
+                v-for="i in item.items"
+                :key="i.id"
+                cols="12"
+              >
+                <v-btn
+                  text
+                >
+                  {{ i.title }}
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+      </v-col>
+
+      <!-- AsagoStudio - Years -->
+      <v-col
+        cols="12"
+      >
+
+      </v-col>
+
     </v-row>
 
   </v-footer>
@@ -154,21 +253,126 @@ export default {
   name: "BaseLayout",
   data: () => ({
       drawer: false,
+
+      // Icon for the break points lg and xl
       iconBreakPointLgXl : {
         search: 'mdi-magnify',
         account: 'mdi-account',
         cart: 'mdi-cart'
       },
+
+      // Icon for the socials networks
       iconSocialNetwork : {
+        // INSTA
         instagram : {
           href: "https://www.instagram.com/asagostudio/",
           icon: 'mdi-instagram'
         },
+        // PINTEREST
         pinterest: {
           href: "https://www.pinterest.fr/pin/1077134435847266084/",
           icon: 'mdi-pinterest'
         }
+      },
+
+    // Data for Navigation Drawer
+      navigationDrawer: {
+
+        // ITEM TOP
+        itemTop: {
+          search: {
+            title: 'Recherche',
+            icon: 'mdi-magnify'
+          },
+          account: {
+            title: 'Mon compte',
+            icon: 'mdi-account'
+          },
+          cart: {
+            title: 'Mon panier',
+            icon: 'mdi-basket'
+          }
+        },
+
+        // ITEM BOTTOM
+        itemBottom: {
+
+          // Menu
+          menu: {
+              // ENGAGEMENTS
+              engagements : {
+                  title: 'Nos engagements',
+                  icon: 'mdi-earth',
+                  items: {
+                    ecology: {
+                      title: 'Ecologie',
+                    },
+                    transparent: {
+                      title: 'Transparence'
+                    }
+                  }
+              },
+
+              // ABOUT
+              About: {
+                title: 'A propos',
+                icon: 'mdi-information',
+                items:{
+                  AsagoStudio:{
+                    title: 'Asago Studio'
+                  },
+                  Founder: {
+                    title: 'Fondatrice'
+                  }
+                }
+              }
+          },
+
+        }
+      },
+
+    // ITEM FOR FOOTER
+    itemFooter: {
+        // CUSTOMER
+        customers:{
+          title: 'Clients',
+          items:{
+            faq: {
+              title: 'FAQ'
+            },
+            repayment:{
+              title: 'Politique de remboursement'
+            }
+          }
+        },
+      // CONTACT
+      contact: {
+        title: 'Contact',
+        items:{
+          mail:{
+            title: 'Adresse mail'
+          },
+          contact:{
+            title: 'Formulaire de contact'
+          }
+        }
+      },
+      // ASAGO STUDIO
+      asagoStudio: {
+        title: 'Asago Studio',
+        items:{
+          mentionsLegal: {
+            title: 'Mentions légale',
+          },
+          useConditions: {
+            title: 'Conditions d\'utilisation',
+          },
+          order:{
+            title: 'Politique de commande'
+          }
+        }
       }
+    }
   }),
   computed: {
     height() {
