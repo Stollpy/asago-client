@@ -21,6 +21,7 @@
         <v-img
          :src="require('../../assets/core/Logo1.png')"
          max-width="375"
+         @click="redirectHome()"
         />
 
         <v-col
@@ -34,9 +35,9 @@
         </v-col>
 
       </v-row>
-      <!-- content component -->
-      <slot />
     </v-container>
+    <!-- content component -->
+    <slot />
   </v-main>
 
   <!-- Footer  -->
@@ -66,8 +67,13 @@ export default {
     }
   },
   methods: {
-    setDrawerActive( drawer ) {
+    setDrawerActive ( drawer ) {
      this.drawer = drawer.data;
+    },
+    redirectHome () {
+      if ( this.$route.path !== '/' ) {
+        this.$router.push( { path: '/' } )
+      }
     }
   },
 }

@@ -2,7 +2,7 @@
 <div id="footer">
   <v-footer
       color="secondary"
-      app
+      class="mt-10"
   >
 
     <!-- Content footer -->
